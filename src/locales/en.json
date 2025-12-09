@@ -1,0 +1,16 @@
+
+{
+    "error" : {
+        "empty" : "Please fill out this field",
+        "duplicate" : "This url already existst. Enter different Url",
+        "invalid" : "Enter a valid Url",
+        "parsing" : "Something went wrong, try a different link",
+        "network" : "Network error"
+    },
+    "status" : {
+        "sending": "Loading…",
+        "success" : "Url was added successfully!"
+    }
+    
+
+}

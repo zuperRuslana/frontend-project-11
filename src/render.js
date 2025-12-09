@@ -1,29 +1,22 @@
+import i18next from 'i18next';
+
 export default function render (path, value, state) {
     const input = document.querySelector('#rss-url');
     const feedback = document.querySelector('.invalid-feedback');
+    console.log('render:', path, value)
+
 
     if (path === 'form.error') {
-        if(value === 'empty'){
-        feedback.textContent = 'Please fill out this field';
+        feedback.textContent = i18next.t(`error.${value}`);
         input.classList.add('is-invalid')
+        i18next.t('error.invalid')
 
-    }
-        if (value === 'duplicate'){
-        feedback.textContent = 'This url already existst. Enter different url.'
-        input.classList.add('is-invalid')
-    }
-        if (value === 'invalid') {
-        feedback.textContent = 'Enter a valid Url.'
-        input.classList.add('is-invalid')
-    }
-}
+        }
 
     if (path === 'form.status') {
-        if(value === 'success') {
         input.value = '';
-        feedback.textContent = '';
+        feedback.textContent = i18next.t(`status.${value}`);
         input.classList.remove('is-invalid')
         input.focus()
-        }
     }
 }

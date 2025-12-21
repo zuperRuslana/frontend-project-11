@@ -2,6 +2,9 @@ import './style.css'
 import { userSchema } from './validator'
 import init from './application'
 import './i18ninit.js';
+import _ from 'lodash';
+import parser from './parser.js';
+
 const watchedObject = init();
 
 
@@ -19,33 +22,40 @@ form.addEventListener('submit', (e) => {
   const inputObject = {url : input.value}
   userSchema.validate(inputObject) 
     .then((data) => { 
-      if(watchedObject.feeds.includes(url)){
-        throw new Error('duplicate');
-      }
-      return data;
-  })
+      if(watchedObject.feeds.some(feed=>
+        feed.link === url))
+        {
+        throw new Error('duplicate'); 
+  }
+})
     .then((data)=> {
       watchedObject.form.status = 'sending';
-      return fetch(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(data.url)}`)
+      return parser(url)
+    }) 
+    .then((response)=> {
+      const {feed, posts} = response
+    
+       const feedResource = {
+        id: _.uniqueId(),
+        link: url,
+        title: feed.title,
+        description: feed.description,
+    }    
+     const postsResource = posts.map(post => {
+      return {
+        id: _.uniqueId(),
+        feedId: feedResource.id,
+        link: post.link,
+        title: post.title,
+        description: post.description
+    }
     })
-    .then((response)=>{
-      if(!response.ok){
-        throw new Error ('network')
-      }
-        return response.json();
-    })
-    .then((json) => {
-      const parser = new DOMParser();
-      const content = parser.parseFromString(json.contents, "application/xml");
-      const errorNode = content.querySelector('parsererror');
-
-      if(errorNode) {
-        throw new Error('parsing')
-      }
-      watchedObject.feeds.push(url)
-      console.log("ADDING TO FEEDS:",url)
+    watchedObject.feeds.push(feedResource)
+    postsResource.forEach(post => 
+      watchedObject.posts.push(post)
+    )
       watchedObject.form.status = 'success'
-    })
+})
     .catch((error) => {
       if(error.message === 'duplicate') {
         watchedObject.form.error = 'duplicate'
@@ -63,6 +73,7 @@ form.addEventListener('submit', (e) => {
       watchedObject.form.error = 'invalid'
       return;
       }
-    })      
-  })
+    }) 
+   
+})
 

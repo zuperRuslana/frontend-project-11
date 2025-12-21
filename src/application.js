@@ -7,9 +7,12 @@ const state = {
         status: '',
         error: ''
     },
-    feeds: []
+    feeds: [],
+    posts: []
 };
-const watchedObject = onChange(state, render);
+const watchedObject = onChange(state, (path, value)=> {
+    render(path, value, state)
+})
 return watchedObject;
 
 }

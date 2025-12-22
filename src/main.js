@@ -4,6 +4,7 @@ import init from './application'
 import './i18ninit.js';
 import _ from 'lodash';
 import parser from './parser.js';
+import getPosts from './new_posts_checker.js';
 
 const watchedObject = init();
 
@@ -55,7 +56,14 @@ form.addEventListener('submit', (e) => {
       watchedObject.posts.push(post)
     )
       watchedObject.form.status = 'success'
+      getPosts(url, feedResource.id )
+
 })
+
+
+
+
+//errors
     .catch((error) => {
       if(error.message === 'duplicate') {
         watchedObject.form.error = 'duplicate'

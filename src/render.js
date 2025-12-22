@@ -5,7 +5,7 @@ export default function render (path, value, state) {
     const feedback = document.querySelector('.feedback');
     const feedsSection = document.querySelector('#feeds')
     const postsSection = document.querySelector('#posts')
-    console.log('render:', path, value)
+    //console.log('render:', path, value)
 
 
     if (path === 'form.error') {

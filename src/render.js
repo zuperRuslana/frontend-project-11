@@ -1,19 +1,19 @@
 import i18next from 'i18next';
 
+let clickedPost = null;
+
 export default function render (path, value, state) {
     const input = document.querySelector('#rss-url');
     const feedback = document.querySelector('.feedback');
     const feedsSection = document.querySelector('#feeds')
     const postsSection = document.querySelector('#posts')
-    //console.log('render:', path, value)
-
 
     if (path === 'form.error') {
         feedback.textContent = i18next.t(`error.${value}`);
         input.classList.add('is-invalid')
         i18next.t('error.invalid')
         }
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
     if (path === 'form.status') {
         input.value = '';
         feedback.textContent = i18next.t(`status.${value}`);
@@ -26,7 +26,7 @@ export default function render (path, value, state) {
         feedsSection.innerHTML = '';
         const header = document.createElement('div');
         header.className = 'card-title h4 pb-2'
-        header.textContent = 'Feeds:';
+        header.textContent = i18next.t('page.feeds');
         feedsSection.appendChild(header);
         const feedsList = document.createElement('ul');
         feedsList.className = 'list-group border 0 rounded 0'
@@ -51,7 +51,7 @@ export default function render (path, value, state) {
         postsSection.innerHTML = '';
         const h4 = document.createElement('div');
         h4.className = 'card-title h4 pb-2'
-        h4.textContent = 'Posts:';
+        h4.textContent = i18next.t('page.posts');
         postsSection.appendChild(h4);
         const postsList = document.createElement('ul');
         postsList.className = 'list-group border 0 rounded 0'
@@ -66,6 +66,38 @@ export default function render (path, value, state) {
             li.appendChild(a)
             a.href = post.link
             a.textContent = post.title
-        })
+            const button = document.createElement('button')
+            button.className = 'btn btn-success btn-sm'
+            button.textContent = i18next.t('buttons.read')
+            a.after(button)
+            button.setAttribute('data-bs-toggle', 'modal');
+            button.setAttribute('data-bs-target', '#modal');
+
+            button.addEventListener('click', ()=>{
+            clickedPost = post;
+            })
+         })  
     }
 }
+const modal = document.getElementById('modal');
+  const readingBtn = document.getElementById('reading');
+  readingBtn.textContent = i18next.t('buttons.read')
+
+  modal.addEventListener('shown.bs.modal', () => {
+    console.log('MODAL SHOWN', clickedPost);
+
+    if (!clickedPost) return;
+
+    const title = document.getElementById('title');
+    const description = document.getElementById('description');
+    const closeBtn = document.getElementById("closeBtn")
+    closeBtn.textContent = i18next.t('buttons.close')
+    const readFullBtn = document.getElementById('reading')
+    readFullBtn.textContent = i18next.t('buttons.continue')
+
+
+    title.textContent = clickedPost.title;
+    description.textContent = clickedPost.description;
+    readingBtn.href = clickedPost.link;
+  });
+

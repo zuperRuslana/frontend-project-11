@@ -10,7 +10,16 @@
     "status" : {
         "sending": "Loading…",
         "success" : "Url was added successfully!"
-    }
-    
+    },
+    "buttons" : {
+        "add" : "Add",
+        "read" : "Read",
+        "continue" : "Continue reading",
+        "close" : "Close"
 
+    },
+    "page" : {
+        "feeds" : "Feeds:",
+        "posts" : "Posts:"
+    }
 }

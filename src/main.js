@@ -56,12 +56,9 @@ form.addEventListener('submit', (e) => {
       watchedObject.posts.push(post)
     )
       watchedObject.form.status = 'success'
-      getPosts(url, feedResource.id )
+      getPosts(url, feedResource.id)
 
 })
-
-
-
 
 //errors
     .catch((error) => {

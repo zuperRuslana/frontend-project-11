@@ -24,7 +24,7 @@ return axios.get(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url
      const posts = items.map(item=>({
         title: item.querySelector('title').textContent,
         link: item.querySelector('link').textContent,
-        description: item.querySelector('description').textContent
+        description: item.querySelector('description').textContent,
      }))
       return {
         feed,

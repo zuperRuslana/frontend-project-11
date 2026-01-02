@@ -5,9 +5,10 @@ import './i18ninit.js';
 import _ from 'lodash';
 import parser from './parser.js';
 import getPosts from './new_posts_checker.js';
+import { createPostActions } from './stateHelpers.js';
 
 const watchedObject = init();
-
+export const postActions = createPostActions(watchedObject);
 
 const form = document.querySelector('#rss-form')
 const input = document.querySelector('#rss-url')
@@ -48,7 +49,7 @@ form.addEventListener('submit', (e) => {
         feedId: feedResource.id,
         link: post.link,
         title: post.title,
-        description: post.description
+        description: post.description,
     }
     })
     watchedObject.feeds.push(feedResource)
@@ -81,4 +82,5 @@ form.addEventListener('submit', (e) => {
     }) 
    
 })
+
 

@@ -5,10 +5,13 @@ export default function init () {
 const state = {
     form :{
         status: '',
-        error: ''
+        error: '',
     },
     feeds: [],
-    posts: []
+    posts: [],
+    ui : {
+        readPostsIds: []
+    }
 };
 const watchedObject = onChange(state, (path, value)=> {
     render(path, value, state)

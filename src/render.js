@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-
+import { postActions } from './main';
 let clickedPost = null;
 
 export default function render (path, value, state) {
@@ -47,7 +47,7 @@ export default function render (path, value, state) {
         })
     }
 
-    if (path === 'posts') {
+    if (path.startsWith('posts') || path.startsWith('ui')) {
         postsSection.innerHTML = '';
         const h4 = document.createElement('div');
         h4.className = 'card-title h4 pb-2'
@@ -61,31 +61,48 @@ export default function render (path, value, state) {
             const li = document.createElement('li');
             li.className= "list-group-item d-flex justify-content-between align-items-start border-0 border-end-0"
             const a = document.createElement('a');
-            a.className = "fw-bold"
+            a.classList.add("postTitle")
+            const isRead = state.ui.readPostsIds.includes(post.id);
+            a.classList.add(isRead ? 'fw-normal' : 'fw-bold'); 
             postsList.appendChild(li)
             li.appendChild(a)
             a.href = post.link
             a.textContent = post.title
+            a.dataset.postId = post.id;
+
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const {postId} = e.currentTarget.dataset
+                postActions.readPost(postId)
+                window.open(a.href, '_blank', 'noopener,noreferrer');
+                console.log('READ IDS:', state.ui.readPostsIds);
+                console.log('POST ID:', post.id);
+            })
+
             const button = document.createElement('button')
             button.className = 'btn btn-success btn-sm'
             button.textContent = i18next.t('buttons.read')
             a.after(button)
             button.setAttribute('data-bs-toggle', 'modal');
             button.setAttribute('data-bs-target', '#modal');
+            button.dataset.postId = post.id;
 
-            button.addEventListener('click', ()=>{
-            clickedPost = post;
+            button.addEventListener('click', (e)=> {
+                const {postId} = e.currentTarget.dataset;
+                clickedPost = post;
+                postActions.readPost(postId)
+              
             })
          })  
     }
 }
+
 const modal = document.getElementById('modal');
   const readingBtn = document.getElementById('reading');
   readingBtn.textContent = i18next.t('buttons.read')
 
   modal.addEventListener('shown.bs.modal', () => {
-    console.log('MODAL SHOWN', clickedPost);
-
     if (!clickedPost) return;
 
     const title = document.getElementById('title');
@@ -94,7 +111,6 @@ const modal = document.getElementById('modal');
     closeBtn.textContent = i18next.t('buttons.close')
     const readFullBtn = document.getElementById('reading')
     readFullBtn.textContent = i18next.t('buttons.continue')
-
 
     title.textContent = clickedPost.title;
     description.textContent = clickedPost.description;

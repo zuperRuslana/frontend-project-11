@@ -7,21 +7,19 @@ export default function getPosts(url, feedId){
 setTimeout(()=> {
  parser(url)
     .then((data) => {
-    const previousPosts = watchedObject.posts.filter(posts => posts.feedId === feedId)
+    const previousPosts = watchedObject.posts.filter(
+        post => post.feedId === feedId)
     const fetchedNewPosts = data.posts;
 
-    const newPost = _.differenceBy(fetchedNewPosts, previousPosts, 'link');
-    
-    console.log("Fetched posts:", fetchedNewPosts.length);
-    console.log("Previous posts:", previousPosts.length);
-    console.log("New posts detected:", newPost.length);
-    newPost.forEach(post =>{
+    const newPosts = _.differenceBy(fetchedNewPosts, previousPosts, 'link');
+    newPosts.forEach(post =>{
         watchedObject.posts.push({
             id: _.uniqueId(),
             feedId: feedId,
             link: post.link,
             title: post.title,
-            description: post.description
+            description: post.description,
+            isRead: false
            })
         })
         getPosts(url,feedId)

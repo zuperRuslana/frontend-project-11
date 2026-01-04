@@ -1,25 +1,25 @@
-
 {
-    "error" : {
-        "empty" : "Please fill out this field",
-        "duplicate" : "This url already existst. Enter different Url",
-        "invalid" : "Enter a valid Url",
-        "parsing" : "Something went wrong, try a different link",
-        "network" : "Network error"
-    },
-    "status" : {
-        "sending": "Loading…",
-        "success" : "Url was added successfully!"
-    },
-    "buttons" : {
-        "add" : "Add",
-        "read" : "Read",
-        "continue" : "Continue reading",
-        "close" : "Close"
-
-    },
-    "page" : {
-        "feeds" : "Feeds:",
-        "posts" : "Posts:"
-    }
+  "error": {
+    "empty": "Please fill out this field",
+    "duplicate": "This url already existst. Enter different Url",
+    "invalid": "Enter a valid Url",
+    "parsing": "Something went wrong, try a different link",
+    "network": "Network error"
+  },
+  "status": {
+    "sending": "Loading…",
+    "success": "Url was added successfully!"
+  },
+  "buttons": {
+    "add": "Add",
+    "read": "Read",
+    "continue": "Continue reading",
+    "close": "Close"
+  },
+  "page": {
+    "header": "RSS Agregator",
+    "rss-url": "RSS link",
+    "feeds": "Feeds:",
+    "posts": "Posts:"
+  }
 }

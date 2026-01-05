@@ -1,15 +1,14 @@
 import parser from "./parser.js";
 import _ from "lodash";
-import init from "./application.js";
-const watchedObject = init();
 
-export default function getPosts(url, feedId) {
+export default function getPosts(url, feedId, watchedObject) {
   setTimeout(() => {
     parser(url)
       .then((data) => {
         const previousPosts = watchedObject.posts.filter(
           (post) => post.feedId === feedId,
         );
+
         const fetchedNewPosts = data.posts;
 
         const newPosts = _.differenceBy(fetchedNewPosts, previousPosts, "link");
@@ -23,11 +22,11 @@ export default function getPosts(url, feedId) {
             isRead: false,
           });
         });
-        getPosts(url, feedId);
+        getPosts(url, feedId, watchedObject);
       })
       .catch((e) => {
         console.log(e);
-        getPosts(url, feedId);
+        getPosts(url, feedId, watchedObject);
       });
   }, 5000);
 }

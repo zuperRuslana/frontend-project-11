@@ -10,6 +10,8 @@ export default function render(path, value, state) {
 
   if (path === "form.error") {
     feedback.textContent = i18next.t(`error.${value}`);
+    feedback.classList.remove('text-success')
+    feedback.classList.add('text-danger')
     input.classList.add("is-invalid");
     i18next.t("error.invalid");
     input.classList.remove("border-success");
@@ -20,6 +22,13 @@ export default function render(path, value, state) {
     feedback.textContent = i18next.t(`status.${value}`);
     input.classList.remove("is-invalid");
     input.classList.add("border", "border-3", "border-success");
+    feedback.classList.remove('text-danger'); 
+
+    if(value === 'success') {
+        console.log('ADDING text-success');
+
+        feedback.classList.add('text-success')
+    }
     input.focus();
   }
 

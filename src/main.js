@@ -58,7 +58,7 @@ form.addEventListener("submit", (e) => {
       watchedObject.feeds.push(feedResource);
       postsResource.forEach((post) => watchedObject.posts.push(post));
       watchedObject.form.status = "success";
-      getPosts(url, feedResource.id);
+      getPosts(url, feedResource.id, watchedObject);
     })
 
     //errors

@@ -3,11 +3,11 @@ import axios from 'axios'
 const parser = (url) => {
   return axios
     .get(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}&disableCache=true`)
-    .then((response) => {
+    .then(response => {
       const obj = response.data
       return obj.contents
     })
-    .then((data) => {
+    .then(data => {
       const parser = new DOMParser()
       const contents = parser.parseFromString(data, 'text/xml')
       const errorNode = contents.querySelector('parsererror')
@@ -32,9 +32,8 @@ const parser = (url) => {
         posts,
       }
     })
-    .catch((error) => {
-
-      if(axios.isAxiosError(error)&& !error.response) {
+    .catch(error => {
+      if (axios.isAxiosError(error) && !error.response) {
         throw new Error('network')
       }
       throw error

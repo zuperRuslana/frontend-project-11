@@ -21,14 +21,12 @@ export default function render(path, value, state) {
     feedback.textContent = i18next.t('status.sending')
     feedback.className
       = 'feedback m-0 position-absolute small text-secondary'
-  
     input.classList.remove('is-invalid')
   }
   if (path === 'form.status' && value === 'success') {
     feedback.textContent = i18next.t('status.success')
     feedback.className
       = 'feedback m-0 position-absolute small text-success'
-  
     input.classList.remove('is-invalid')
     input.classList.add('border', 'border-3', 'border-success')
     input.value = ''
@@ -45,7 +43,7 @@ export default function render(path, value, state) {
     feedsList.className = 'list-group border 0 rounded 0'
     feedsSection.appendChild(feedsList)
 
-    state.feeds.forEach((obj) => {
+    state.feeds.forEach(obj => {
       const li = document.createElement('li')
       li.className = 'list-group-item border-0 border-end-0'
       const h3 = document.createElement('h3')
@@ -70,7 +68,7 @@ export default function render(path, value, state) {
     postsList.className = 'list-group border 0 rounded 0'
     postsSection.appendChild(postsList)
 
-    state.posts.forEach((post) => {
+    state.posts.forEach(post => {
       const li = document.createElement('li')
       li.className
         = 'list-group-item d-flex justify-content-between align-items-start border-0 border-end-0'
@@ -85,10 +83,9 @@ export default function render(path, value, state) {
       a.target = '_blank'
       a.rel = 'noopener noreferrer'
 
-      a.addEventListener('click', (e) => {
+      a.addEventListener('click', e => {
         const { postId } = e.currentTarget.dataset
         postActions.readPost(postId)
-        
       })
 
       const button = document.createElement('button')
@@ -99,7 +96,7 @@ export default function render(path, value, state) {
       button.setAttribute('data-bs-target', '#modal')
       button.dataset.postId = post.id
 
-      button.addEventListener('click', (e) => {
+      button.addEventListener('click', e => {
         const { postId } = e.currentTarget.dataset
         clickedPost = post
         postActions.readPost(postId)
@@ -114,14 +111,12 @@ readingBtn.textContent = i18next.t('buttons.read')
 
 modal.addEventListener('shown.bs.modal', () => {
   if (!clickedPost) return
-
   const title = document.getElementById('title')
   const description = document.getElementById('description')
   const closeBtn = document.getElementById('closeBtn')
   closeBtn.textContent = i18next.t('buttons.close')
   const readFullBtn = document.getElementById('reading')
   readFullBtn.textContent = i18next.t('buttons.continue')
-
   title.textContent = clickedPost.title
   description.textContent = clickedPost.description
   readingBtn.href = clickedPost.link

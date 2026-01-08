@@ -4,11 +4,10 @@ import _ from 'lodash'
 export default function getPosts(url, feedId, watchedObject) {
   setTimeout(() => {
     parser(url)
-      .then((data) => {
+      .then(data => {
         const previousPosts = watchedObject.posts.filter(
           (post) => post.feedId === feedId,
         )
-
         const fetchedNewPosts = data.posts
 
         const newPosts = _.differenceBy(fetchedNewPosts, previousPosts, 'link')

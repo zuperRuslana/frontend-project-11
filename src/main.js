@@ -17,7 +17,7 @@ export const postActions = createPostActions(watchedObject)
 const form = document.querySelector('#rss-form')
 const input = document.querySelector('#rss-url')
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', e => {
   e.preventDefault()
   const url = input.value
 
@@ -37,9 +37,8 @@ form.addEventListener('submit', (e) => {
       watchedObject.form.status = 'sending'
       return parser(url)
     })
-    .then((response) => {
+    .then(response => {
       const { feed, posts } = response
-
       const feedResource = {
         id: _.uniqueId(),
         link: url,
@@ -60,19 +59,20 @@ form.addEventListener('submit', (e) => {
       watchedObject.form.status = 'success'
       getPosts(url, feedResource.id, watchedObject)
     })
-
-    //errors
-    .catch((error) => {
+    .catch(error => {
       if (error.message === 'duplicate') {
         watchedObject.form.error = 'duplicate'
         return
-      } else if (error.message === 'network') {
+      }
+      else if (error.message === 'network') {
         watchedObject.form.error = 'network'
         return
-      } else if (error.message === 'parsing') {
+      }
+      else if (error.message === 'parsing') {
         watchedObject.form.error = 'parsing'
         return
-      } else {
+      }
+      else {
         watchedObject.form.error = 'invalid'
         return
       }

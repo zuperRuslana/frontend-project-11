@@ -31,6 +31,13 @@ const parser = (url) => {
         feed,
         posts,
       };
-    });
+    })
+    .catch((error) => {
+
+      if(axios.isAxiosError(error)&& !error.response) {
+        throw new Error("network")
+      }
+      throw error;
+    })
 };
 export default parser;

@@ -75,7 +75,6 @@ export default function render(path, value, state) {
       li.className =
         "list-group-item d-flex justify-content-between align-items-start border-0 border-end-0";
       const a = document.createElement("a");
-      a.classList.add("postTitle");
       const isRead = state.ui.readPostsIds.includes(post.id);
       a.classList.add(isRead ? "fw-normal" : "fw-bold");
       postsList.appendChild(li);
@@ -83,15 +82,13 @@ export default function render(path, value, state) {
       a.href = post.link;
       a.textContent = post.title;
       a.dataset.postId = post.id;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
 
       a.addEventListener("click", (e) => {
-        e.preventDefault();
-
         const { postId } = e.currentTarget.dataset;
         postActions.readPost(postId);
-        window.open(a.href, "_blank", "noopener,noreferrer");
-        console.log("READ IDS:", state.ui.readPostsIds);
-        console.log("POST ID:", post.id);
+        
       });
 
       const button = document.createElement("button");
@@ -106,7 +103,6 @@ export default function render(path, value, state) {
         const { postId } = e.currentTarget.dataset;
         clickedPost = post;
         postActions.readPost(postId);
-        console.log(state);
       });
     });
   }

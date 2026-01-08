@@ -14,6 +14,7 @@ export default function init() {
     },
   };
   const watchedObject = onChange(state, (path, value) => {
+    console.log("onChange triggered:", path, value);
     render(path, value, state);
   });
   return watchedObject;

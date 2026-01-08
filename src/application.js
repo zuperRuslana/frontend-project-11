@@ -1,21 +1,21 @@
-import onChange from "on-change";
-import render from "./render";
+import onChange from 'on-change'
+import render from './render'
 
 export default function init() {
   const state = {
     form: {
-      status: "",
-      error: "",
+      status: '',
+      error: '',
     },
     feeds: [],
     posts: [],
     ui: {
       readPostsIds: [],
     },
-  };
+  }
   const watchedObject = onChange(state, (path, value) => {
-    console.log("onChange triggered:", path, value);
-    render(path, value, state);
-  });
-  return watchedObject;
+    console.log('onChange triggered:', path, value)
+    render(path, value, state)
+  })
+  return watchedObject
 }

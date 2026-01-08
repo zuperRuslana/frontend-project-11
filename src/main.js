@@ -17,7 +17,7 @@ export const postActions = createPostActions(watchedObject)
 const form = document.querySelector('#rss-form')
 const input = document.querySelector('#rss-url')
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', (e) => {
   e.preventDefault()
   const url = input.value
 
@@ -29,7 +29,7 @@ form.addEventListener('submit', e => {
   userSchema
     .validate(inputObject)
     .then(() => {
-      if (watchedObject.feeds.some((feed) => feed.link === url)) {
+      if (watchedObject.feeds.some(feed => feed.link === url)) {
         throw new Error('duplicate')
       }
     })
@@ -37,7 +37,7 @@ form.addEventListener('submit', e => {
       watchedObject.form.status = 'sending'
       return parser(url)
     })
-    .then(response => {
+    .then((response) => {
       const { feed, posts } = response
       const feedResource = {
         id: _.uniqueId(),
@@ -55,11 +55,11 @@ form.addEventListener('submit', e => {
         }
       })
       watchedObject.feeds.push(feedResource)
-      postsResource.forEach((post) => watchedObject.posts.push(post))
+      postsResource.forEach(post => watchedObject.posts.push(post))
       watchedObject.form.status = 'success'
       getPosts(url, feedResource.id, watchedObject)
     })
-    .catch(error => {
+    .catch((error) => {
       if (error.message === 'duplicate') {
         watchedObject.form.error = 'duplicate'
         return

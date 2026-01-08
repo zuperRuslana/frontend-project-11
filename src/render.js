@@ -43,7 +43,7 @@ export default function render(path, value, state) {
     feedsList.className = 'list-group border 0 rounded 0'
     feedsSection.appendChild(feedsList)
 
-    state.feeds.forEach(obj => {
+    state.feeds.forEach((obj) => {
       const li = document.createElement('li')
       li.className = 'list-group-item border-0 border-end-0'
       const h3 = document.createElement('h3')
@@ -68,7 +68,7 @@ export default function render(path, value, state) {
     postsList.className = 'list-group border 0 rounded 0'
     postsSection.appendChild(postsList)
 
-    state.posts.forEach(post => {
+    state.posts.forEach((post) => {
       const li = document.createElement('li')
       li.className
         = 'list-group-item d-flex justify-content-between align-items-start border-0 border-end-0'
@@ -83,7 +83,7 @@ export default function render(path, value, state) {
       a.target = '_blank'
       a.rel = 'noopener noreferrer'
 
-      a.addEventListener('click', e => {
+      a.addEventListener('click', (e) => {
         const { postId } = e.currentTarget.dataset
         postActions.readPost(postId)
       })
@@ -96,7 +96,7 @@ export default function render(path, value, state) {
       button.setAttribute('data-bs-target', '#modal')
       button.dataset.postId = post.id
 
-      button.addEventListener('click', e => {
+      button.addEventListener('click', (e) => {
         const { postId } = e.currentTarget.dataset
         clickedPost = post
         postActions.readPost(postId)

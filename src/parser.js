@@ -2,7 +2,7 @@ import axios from "axios";
 
 const parser = (url) => {
   return axios
-    .get(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}`)
+    .get(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}&disableCache=true`)
     .then((response) => {
       const obj = response.data;
       return obj.contents;
